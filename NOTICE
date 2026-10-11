@@ -35,10 +35,13 @@ UNIPEN (Train-R01/V07)
   project of on-line data exchange and recognizer benchmarks". ICPR 1994.
   Zenodo record 1195803.
   Used under its conditions of use, which allow training recognisers for
-  commercial use; the Zenodo record is licensed CC BY 4.0
-  (https://creativecommons.org/licenses/by/4.0/).
-  No writer or donor identity is referenced. Also used: lines joined from
-  UNIPEN words, and lines of UNIPEN characters.
+  commercial use (II.b); the Zenodo record is licensed CC BY 4.0
+  (https://creativecommons.org/licenses/by/4.0/). The conditions ask for
+  the UNIPEN logo in the product documentation (II.c); the logo's page
+  (unipen.org/iuf-unipen-tm.html) is no longer online and was never
+  archived, so UNIPEN and the International Unipen Foundation are credited
+  here by name. No writer or donor identity is referenced (II.d). Also
+  used: lines joined from UNIPEN words, and lines of UNIPEN characters.
 
 PluColl - The UNIPEN/NICI/HP data collection of 1994
   L. Schomaker. Zenodo record 7894283. Licence: CC BY 4.0

@@ -2,7 +2,7 @@
 
 One binary file holds the network, the character language model and the
 settings a reader needs. Everything is little-endian, and every block starts
-on a 4-byte boundary.
+on a 4-byte boundary. [`reader.py`](reader.py) is a complete reader.
 
 ```
 "FNHW"            4 bytes, magic

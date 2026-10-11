@@ -35,8 +35,36 @@ plugin for Obsidian.
 - [`NOTICE`](NOTICE): the datasets it was trained on, their authors and the
   terms they were used under. It must travel with every copy of the model.
 
-Only the model is published here. The code that runs it lives in FineNotes
-(`src/recognition/hwr/`).
+- [`reader.py`](reader.py): a complete reader in plain Python (numpy only).
+  It computes exactly what FineNotes computes: the same features, network,
+  language model and beam search.
+
+FineNotes' own reader is TypeScript (`src/recognition/hwr/`).
+
+## Use it
+
+```bash
+pip install numpy
+python reader.py grape-1.0.bin line.json
+```
+
+`line.json` holds one line of handwriting:
+
+```json
+{"strokes": [{"points": [[12, 40], [13, 38], [15, 37]], "t0": 1712345678901},
+             {"points": [[30, 41], [31, 35]], "t0": 1712345679120}]}
+```
+
+Points are `[x, y]` in any unit, with y pointing down as on a screen; the
+line is normalised by its own size. `t0` (optional) is when the stroke
+started, in milliseconds: with start times the strokes are read in writing
+order, without them left to right. From Python:
+
+```python
+import reader
+model = reader.load("grape-1.0.bin")
+print(model.read(strokes, t0s))   # strokes: a list of [(x, y), ...] per stroke
+```
 
 ## Accuracy, in short
 
