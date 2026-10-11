@@ -1,4 +1,4 @@
-# Evaluation of `finenotes-hwr-1.0.bin` (2026-10-11)
+# Evaluation of `grape-1.0.bin` (2026-10-11)
 
 Measured with the file itself: int8 network, pruned LM (min count 32), alpha 0.3, beta 0.0, beam 16 (`card_eval.py`). CER and WER in %.
 

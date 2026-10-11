@@ -1,10 +1,10 @@
-# FineNotes handwriting recogniser 1.0
+# Grape 1.0, the FineNotes handwriting recogniser
 
-**Status: beta.**
+**Status: work in progress.** Real handwriting data is what limits it most; see the README.
 
 | | |
 |---|---|
-| File | `finenotes-hwr-1.0.bin` (3.50 MB) |
+| File | `grape-1.0.bin` (3.50 MB) |
 | SHA-256 | `87a9ddd56b6bcf01e66a027ff74f1b8ba9a58fe0d4b0077e6abb6455710d21f9` |
 | Licence | Apache 2.0 (`LICENSE`); attributions in `NOTICE`, which must travel with the file |
 | Trained model | `ship-big2`, 2026-10-09; exported 2026-10-11 |
@@ -64,8 +64,9 @@ Every test set is written by people the model never saw in training.
 whiteboards. On FineNotes ink, the only measurement so far is one writer
 (the developer): about 14–19 % of characters wrong. Most errors are digits
 and symbols, and words a pen-tablet writer would form differently. After
-adapting to that writer, 3.4 %. FineNotes cannot adapt the model on the
-device yet; the adapted row shows what that would bring.
+adapting to that writer, 3.4 %: fine-tuning on a writer's own lines works
+very well. FineNotes cannot adapt the model on the device yet; the adapted
+row shows what that would bring.
 
 ## Training data
 
