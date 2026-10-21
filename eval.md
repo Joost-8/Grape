@@ -1,16 +1,22 @@
-# Evaluation of `grape-1.0.bin` (2026-10-11)
+# Evaluation of `grape-2.0.bin` (2026-10-21)
 
-Measured with the file itself: int8 network, pruned LM (min count 32), alpha 0.3, beta 0.0, beam 16 (`card_eval.py`). CER and WER in %.
+Measured with the file itself through FineNotes' own TypeScript reader: int8 network, pruned LM (min count 32), alpha 0.3, beta 0.0, beam 16. CER in %, greedy / with the language model. Grape 1.0 measured the same way, for comparison.
 
-| Test set | Lines | Greedy CER | CER | WER | What it is |
-|---|---|---|---|---|---|
-| U | 600 | 4.1 | 3.4 | 12.7 | UNIPEN, held-out writers (US tablets, 1990s) |
-| D | 600 | 5.4 | 4.6 | 18.5 | DeepWriting, held-out writers (IAM-OnDB and ETH tablet writers) |
-| I | 600 | 3.9 | 2.9 | 7.3 | ImadocSen, French tablet-PC writers (no training source shares them) |
-| IM | 600 | 2.4 | 1.7 | 6.8 | IAM-OnDB, held-out writers (whiteboard) |
-| A1 | 600 | 2.1 | 2.4 | 14.0 | BRUSH, held-out writers |
-| J | 600 | 1.6 | 0.8 | 3.2 | UJIpenchars2, held-out writers (Spanish, characters) |
-| NS3 | 600 | 2.3 | 1.2 | 5.7 | held-out BRUSH writers on held-out note text (dates, maths, numbers) |
-| C | 49 | 19.6 | 14.2 | 44.7 | the developer's copy sheet: 49 lines copied in FineNotes on an iPad (exact labels) |
-| A2 | 20 | 26.4 | 19.3 | 47.6 | the developer's own lecture-note lines, 20 lines (labels from transcripts) |
-| C, adapted to the writer | 49 | 4.7 | 3.4 | 15.1 | the copy sheet after 300 steps of tuning on the writer's other lines (5-fold CV; the plugin cannot do this yet) |
+| Test set | Lines | Grape 1.0 | Grape 2.0 | What it is |
+|---|---|---|---|---|
+| U | 300 | 3.2 / 2.5 | 3.0 / 2.4 | UNIPEN, held-out writers (US tablets, 1990s) |
+| D | 300 | 5.1 / 4.5 | 5.5 / 5.5 | DeepWriting, held-out writers (IAM-OnDB and ETH tablet writers) |
+| I | 300 | 4.2 / 3.2 | 3.0 / 1.8 | ImadocSen, French tablet-PC writers (no training source shares them) |
+| IM | 300 | 2.2 / 1.5 | 2.6 / 1.6 | IAM-OnDB, held-out writers (whiteboard) |
+| A1 | 300 | 2.4 / 2.6 | 1.6 / 2.0 | BRUSH, held-out writers |
+| NS3 | 300 | 2.4 / 1.2 | 1.9 / 1.0 | held-out BRUSH writers on held-out note text (dates, maths, numbers) |
+| C | 49 | 19.8 / 14.0 | 14.4 / 9.7 | the developer's copy sheet: 49 lines copied in FineNotes on an iPad (exact labels) |
+| N39 | 39 | 26.3 / 21.2 | 18.7 / 13.4 | the developer's own lecture-note lines (labels from transcripts) |
+| CS3 | 10 | 29.8 / 27.2 | 25.1 / 24.6 | the developer's maths sheet: formulas on one line |
+| O | 148 | 32.9 / 32.0 | 29.9 / 28.1 | a second FineNotes writer (labels from transcripts) |
+
+The public sets are 300-line samples. N39's lines were chosen by a reference model's match score, which favours lines that are already read reasonably, so its absolute numbers are optimistic; the comparison between models is the same. CS3 is ten lines and moves by several points between training runs.
+
+After tuning on the copy sheet C alone (300 steps, FineNotes' own tuner), Grape 2.0 reads, with the language model: N39 6.9 (from 13.4), CS3 16.1 (from 24.6), O 27.6 (from 28.1), U 3.8 (from 2.4). Tuning fits the writer it is tuned on.
+
+Speed (laptop, features and network, one line): Grape 1.0 34 ms, Grape 2.0 24 ms.

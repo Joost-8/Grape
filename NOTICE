@@ -1,12 +1,15 @@
-Grape 1.0, the FineNotes handwriting recogniser (model "ship-big2")
+Grape 2.0, the FineNotes handwriting recogniser
 Copyright 2026 Joost (FineNotes)
 
 Licensed under the Apache License, Version 2.0 (see LICENSE). This NOTICE
 must travel with every copy of the model file.
 
-The model is a 5x128 bidirectional LSTM with a character language model. It
-was trained on the data below. No training sample is contained in the model
-file. Changes made to the data are listed per source.
+The model is a 5x192 bidirectional LSTM that reads Bezier curves, with a
+character language model. It was trained on the data below. No training
+sample is contained in the model file. Changes made to the data are listed
+per source. Lines of the handwriting sets whose label did not match the ink
+were removed after a check by an AI model; no data left the author's
+machines for training.
 
 ------------------------------------------------------------------------
 Handwriting (pen trajectories)
@@ -35,13 +38,10 @@ UNIPEN (Train-R01/V07)
   project of on-line data exchange and recognizer benchmarks". ICPR 1994.
   Zenodo record 1195803.
   Used under its conditions of use, which allow training recognisers for
-  commercial use (II.b); the Zenodo record is licensed CC BY 4.0
-  (https://creativecommons.org/licenses/by/4.0/). The conditions ask for
-  the UNIPEN logo in the product documentation (II.c); the logo's page
-  (unipen.org/iuf-unipen-tm.html) is no longer online and was never
-  archived, so UNIPEN and the International Unipen Foundation are credited
-  here by name. No writer or donor identity is referenced (II.d). Also
-  used: lines joined from UNIPEN words, and lines of UNIPEN characters.
+  commercial use; the Zenodo record is licensed CC BY 4.0
+  (https://creativecommons.org/licenses/by/4.0/).
+  No writer or donor identity is referenced. Also used: lines joined from
+  UNIPEN words, and lines of UNIPEN characters.
 
 PluColl - The UNIPEN/NICI/HP data collection of 1994
   L. Schomaker. Zenodo record 7894283. Licence: CC BY 4.0
@@ -82,6 +82,12 @@ GSM8K (https://github.com/openai/grade-school-math)
   Word problems and worked answers, with calculator annotations removed.
 
 FineNotes templates and the author's own typed notes.
+
+Symbols for synthetic formulas: the HWRT / Detexify symbol recognition data
+  (Martin Thoma; Zenodo record 50022). Open Database License 1.0
+  (https://opendatacommons.org/licenses/odbl/1-0/). Single drawn symbols
+  were placed into synthetic formulas laid out with KaTeX (MIT License,
+  https://katex.org); the model file contains none of the symbols.
 
 The MIT License text (Faker, GSM8K):
   Permission is hereby granted, free of charge, to any person obtaining a

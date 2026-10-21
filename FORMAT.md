@@ -1,4 +1,4 @@
-# The model file format (version 1)
+# The model file format (versions 1 and 2)
 
 One binary file holds the network, the character language model and the
 settings a reader needs. Everything is little-endian, and every block starts
@@ -71,3 +71,31 @@ LEB128 counts[preds]                             (count bytes in total)
 The probabilities are Witten-Bell interpolated over the context tree.
 FineNotes' reader (`src/recognition/hwr/char-lm.ts`) is the reference for
 how the language model is scored during decoding.
+
+## Version 2: curve input
+
+Grape 2.0 is a version 2 file. The layout is the same as version 1, with
+`u32 version` set to 2, and META gains an `input` object:
+
+```
+"input": {"kind": "curves", "tol": 0.01, "encoding": "raw"}
+```
+
+A version 1 file has no `input` and reads the resampled points. In a
+version 2 file the network reads Bezier curves fitted to those points:
+
+- The line is normalised and resampled exactly as for points, then each
+  stroke is fitted with cubic Bezier curves in (x, y, t), with time scaled to
+  the ink's length, greedily cut where a curve would stray more than `tol`
+  (in units of the lower-case letter height) from the points; a pen-up curve
+  joins one stroke to the next.
+- `encoding: "raw"` feeds each curve's control-point vector (10 values,
+  zero-padded to `meta.net.inputs`, here 12, so the input is a multiple of 4);
+  the padded input channels have zero weights, mean 0 and standard
+  deviation 1.
+- The network, language model and decoder are as in version 1. Output frames
+  are one per curve.
+
+[`reader.py`](reader.py) reads version 1 only. FineNotes' reader
+(`src/recognition/hwr/curves.ts`, `bundle.ts`) is the reference for the curve
+fit and for this layout.
